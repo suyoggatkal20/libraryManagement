@@ -21,7 +21,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-@Entity(name = "tokens")
+@Entity(name = "new_user")
 public class NewUserToken {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +41,7 @@ public class NewUserToken {
 	
 	@ManyToOne
 	@JoinColumn(name = "created_by")
-	private User CreatedBy;
+	private User createdBy;
 
 	public NewUserToken(String token, String email, String accountType, Timestamp expiry, Timestamp createdTimestamp,
 			User createdBy) {
@@ -51,7 +51,11 @@ public class NewUserToken {
 		this.accountType = accountType;
 		this.expiry = expiry;
 		this.createdTimestamp = createdTimestamp;
-		CreatedBy = createdBy;
+		this.createdBy = createdBy;
+	}
+	
+	public boolean isExprired() {
+		return !expiry.after(new Timestamp(System.currentTimeMillis()));
 	}
 	
 	

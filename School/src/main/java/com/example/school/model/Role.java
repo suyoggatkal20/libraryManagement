@@ -48,15 +48,17 @@ public class Role implements GrantedAuthority {
 	}
 	
 
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		return this.getCode().hashCode();
-	}
+	
 
 	public Role(String name, String code) {
 		super();
 		this.name = name;
 		this.code = code;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getCode().hashCode();
 	}
 	
 	

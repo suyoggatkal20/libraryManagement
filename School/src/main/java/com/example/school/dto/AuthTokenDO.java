@@ -13,6 +13,5 @@ import lombok.ToString;
 @ToString
 public class AuthTokenDO {
 	private String token;
-	private UserDO userDO;
-
+	private UserDOmini userDOmini;
 }

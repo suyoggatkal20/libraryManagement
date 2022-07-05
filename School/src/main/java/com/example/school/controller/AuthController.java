@@ -3,7 +3,7 @@ package com.example.school.controller;
 import java.util.Optional;
 import java.util.Set;
 
-
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import com.example.school.dto.AuthTokenDO;
+import com.example.school.dto.CreateAccountDO;
 import com.example.school.dto.LoginDO;
+import com.example.school.dto.NewTokenDO;
+import com.example.school.dto.UserDO;
 import com.example.school.exception.SchoolException;
 import com.example.school.exception.UserDisabledException;
 import com.example.school.model.User;
@@ -62,12 +68,19 @@ public class AuthController {
 	}
 	
 	@GetMapping("/create-signup-token")
-	public ResponseEntity createSignUpTokenController(@RequestParam String email, @RequestParam String type) {
+	public ResponseEntity<NewTokenDO> createSignUpTokenController(@RequestParam String email, @RequestParam String type) {
 		logger.info("Start createSignUpTokenController");
-		authService.createSignUpToken(email, type);
+		NewTokenDO newTokenDO= authService.createSignUpToken(email, type);
 		logger.info("End createSignUpTokenController");
-		return ResponseEntity.ok(HttpStatus.OK);
-		
+		return ResponseEntity.ok(newTokenDO);	
+	}
+	
+	@PostMapping("/create-account")
+	public ResponseEntity<UserDO> createAccountController(@RequestBody @Valid CreateAccountDO createAccountDO){
+		logger.info("start create-account controller");
+		UserDO userDO=authService.createAccount(createAccountDO);
+		logger.info("start create-account controller");
+		return ResponseEntity.ok(userDO);
 	}
 	
 	@GetMapping("/logout")

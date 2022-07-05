@@ -57,6 +57,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests()
 		.antMatchers(AUTH_WHITELIST).permitAll()
 		.antMatchers("/api/v1/auth/login").permitAll()
+		.antMatchers("/api/v1/auth/create-account").permitAll()
 		.anyRequest().authenticated()
 		.and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

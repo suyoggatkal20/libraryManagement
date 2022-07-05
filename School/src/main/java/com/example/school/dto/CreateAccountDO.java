@@ -1,23 +1,14 @@
 package com.example.school.dto;
 
 import java.sql.Date;
-import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.lang.NonNull;
 
 import com.example.school.model.Address;
-import com.example.school.model.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,25 +21,28 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserDO {
-	@NotNull
-	private long id;
+public class CreateAccountDO {
 	@NotBlank
 	private String email;
+	
 	@NotBlank
-	private String roles;
+	private String token;
+	
+	@NotBlank
+	private String password;
 	@NotBlank
 	private String firstName;
 	private String middleName;
 	@NotBlank
 	private String lastName;
-	private Date dateOfBirth;
+	@NotBlank
+	private String dateOfBirth;
+	@NotBlank
 	private String contact1;
 	private String contact2;
 	private String qualification;
-	@JsonInclude
+	@NotNull
 	private AddressDO permanentAddress;
-	@JsonInclude
+	@NotNull
 	private AddressDO temporaryAddress;
-	private boolean enabled;
 }
