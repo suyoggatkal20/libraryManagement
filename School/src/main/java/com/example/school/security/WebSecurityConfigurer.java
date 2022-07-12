@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.school.service.UserService;
+import com.example.school.util.CommonBeans;
 
 
 @EnableWebSecurity
@@ -29,6 +30,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+	@Autowired
+	private CommonBeans commonBeans;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -58,6 +62,10 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		.antMatchers(AUTH_WHITELIST).permitAll()
 		.antMatchers("/api/v1/auth/login").permitAll()
 		.antMatchers("/api/v1/auth/create-account").permitAll()
+		.antMatchers("/api/v1/book/add-book").permitAll()
+		.antMatchers("/api/v1/book/add-book-copy").permitAll()
+		.antMatchers("/api/v1/book/book").permitAll()
+//		.antMatchers("api/v1/book/add-book").hasAnyRole(commonBeans.getAdminRole().getCode(),commonBeans.getLibrarianRole().getCode())
 		.anyRequest().authenticated()
 		.and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -78,4 +78,10 @@ public class CustomExceptionHandler {
 	public @ResponseBody ErrorResponceDO handleInvalidInputsException(InvalidInputsExceptions invalidInputsExceptions) {
 		return new ErrorResponceDO(HttpStatus.BAD_REQUEST.value(),invalidInputsExceptions.getMessage());
 	}
+	@ExceptionHandler(value = EmptyDataException.class)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public @ResponseBody ErrorResponceDO handleEmptyDataException(EmptyDataException emptyDataException) {
+		return new ErrorResponceDO(HttpStatus.NO_CONTENT.value(),emptyDataException.getMessage());
+	}
+
 }

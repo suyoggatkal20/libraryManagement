@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.school.model.Token;
 
-public interface TokenRepository extends JpaRepository<Token, Integer> {
+public interface TokenRepository extends JpaRepository<Token, Long> {
 		public Optional<Token> findByToken(String token);
 		public List<Token> findByEmail(String email);
 

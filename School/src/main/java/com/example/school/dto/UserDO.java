@@ -12,7 +12,6 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.lang.NonNull;
 
 import com.example.school.model.Address;
 import com.example.school.model.Role;
