@@ -87,9 +87,11 @@ public class BookIssueService {
 		if(!bookcopy.isAvailable()||bookcopy.isDisposed()) {
 			throw new InvalidInputsExceptions("Book is currently not available.");
 		}
+		bookcopy.setAvailable(false);
+		bookCopyRepository.save(bookcopy);
 		issue.setIssuer_id(userService.getLoggedInUser().getId());
 		issue.setIssue_timestamp(new Timestamp(System.currentTimeMillis()));
 		issue.setReturn_before(new Date(System.currentTimeMillis()+1000*60*60*24*daysForBook));
-		
+		issueRepository.save(issue);
 	}
 }
